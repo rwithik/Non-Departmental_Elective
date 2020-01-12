@@ -180,22 +180,22 @@ authenticationMethods.authenticateStudent = function(username) {
       .then(result => {
         if (result) {
           const emailid = result.dataValues.email;
-          console.log(result.dataValues.email);
-          const otptoken = otpGenerator.generate(6, options);
-          console.log(otptoken);
-          var transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-              user: "globalelective1@gmail.com",
-              pass: "global@123"
-            }
-          });
-          var mailOptions = {
-            from: "globalelective1@gmail.com",
-            to: emailid,
-            subject: "OTP",
-            // text: `Your one time password is ${otptoken}`
-            html: `<p>Your One-Time Password is <b>${otptoken}</b></p>`
+           console.log(result.dataValues.email);
+            const otptoken = otpGenerator.generate(6, options);
+             console.log(otptoken);
+            var transporter = nodemailer.createTransport({
+              service: 'gmail',
+              auth: {
+                user: 'globalelective1@gmail.com ',
+                pass: 'global@123'
+              }
+            });
+            var mailOptions = {
+              from: 'globalelective1@gmail.com',
+              to: emailid,
+              subject: "OTP",
+              // text: `Your one time password is ${otptoken}`
+              html: `<p>Your One-Time Password is <b>${otptoken}</b></p>`
           };
           transporter.sendMail(mailOptions, function(error, info) {
             if (error) {
