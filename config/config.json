@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "t4ddrsApUK",
+    "password": "yhHzR4Hctd",
+    "database": "t4ddrsApUK",
+    "host": "remotemysql.com",
+    "dialect": "mysql"
+  }
+}
