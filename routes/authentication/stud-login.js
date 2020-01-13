@@ -38,7 +38,7 @@ router.post('/confirmOtp', (req, res) => {
 
             })
             .catch(err => {
-
+                states = states.filter(i => i.username !== username);
                 console.log(err)
                 res.status(400).json({ success: false })
             })
