@@ -187,7 +187,7 @@ authenticationMethods.authenticateStudent = function(username) {
               service: 'gmail',
               auth: {
                 user: 'globalelective1@gmail.com ',
-                pass: 'global@123'
+                pass: 'K36fCnspsU6MRPJ'
               }
             });
             var mailOptions = {
