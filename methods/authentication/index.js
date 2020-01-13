@@ -39,7 +39,6 @@ authenticationMethods.registerAdmin = function (info) {
               });
           })
           .then(function (result) {
-            console.log("SUCCESS");
             resolve({ success: true });
           })
           .catch(function (err) {
@@ -63,18 +62,15 @@ authenticationMethods.registerHOD = function (info) {
             user.username = info.username;
             user.password = hash;
             user.type = 2;
-            //  console.log(hash)
             return models.user
               .create(user, { transaction: t })
               .then(function (user) {
-                // console.log(user)
               })
               .catch(function (err) {
                 reject({ success: err });
               });
           })
           .then(function (result) {
-            console.log("SUCCESS");
             resolve({ success: true });
           })
           .catch(function (err) {
@@ -98,18 +94,15 @@ authenticationMethods.registerAdvisor = function (info) {
             user.username = info.username;
             user.password = hash;
             user.type = 3;
-            //  console.log(hash)
             return models.user
               .create(user, { transaction: t })
               .then(function (user) {
-                // console.log(user)
               })
               .catch(function (err) {
                 reject({ success: err });
               });
           })
           .then(function (result) {
-            console.log("SUCCESS");
             resolve({ success: true });
           })
           .catch(function (err) {
@@ -132,10 +125,8 @@ authenticationMethods.authenticateUser = function (username, password) {
       })
       .then(result => {
         if (result) {
-          // console.log(result)
           bcrypt.compare(password, result.password, function (err, res) {
             if (res === true) {
-              console.log("correct password-bcrypt");
               const token = jwt.sign(
                 {
                   id: result.username,
@@ -147,7 +138,6 @@ authenticationMethods.authenticateUser = function (username, password) {
               const type = result.dataValues.type;
               const user_id = result.dataValues.username;
               var decoded = jwt.decode(token, { complete: true });
-              console.log(user_id + " " + type);
 
               resolve({
                 success: true,
@@ -156,7 +146,6 @@ authenticationMethods.authenticateUser = function (username, password) {
                 user_id: user_id
               });
             } else {
-              console.log("wrong password-bcrypt");
 
               reject({ success: false, token: null });
             }
@@ -254,8 +243,6 @@ authenticationMethods.authenticateStud = function (username) {
       })
       .then(result => {
         if (result) {
-          // console.log(result)
-          console.log("correct password-bcrypt");
           const token = jwt.sign(
             {
               id: result.id,
@@ -267,7 +254,6 @@ authenticationMethods.authenticateStud = function (username) {
           const type = "student";
           const user_id = result.dataValues.id;
           var decoded = jwt.decode(token, { complete: true });
-          console.log(user_id + " " + type);
 
           resolve({
             success: true,

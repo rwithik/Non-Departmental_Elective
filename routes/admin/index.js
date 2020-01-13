@@ -11,22 +11,18 @@ router.get('/dashboard', (req, res, next) => {
     for (let i = 0; i < dic["HOD"].length; i += 1) {
       hod.push(dic["HOD"][i].dataValues);
     }
-    console.log(hod)
     let hoddept = []
     for (let i = 0; i < hod.length; i++) {
       hoddept.push(hod[i].deptID)
     }
-    console.log(hoddept)
     methods.department.getDepts(hoddept).then(function (result) {
       var dict = { "data": result }
       let depts = [];
       for (let i = 0; i < dict["data"].length; i += 1) {
         depts.push(dict["data"][i].dataValues);
       }
-      console.log(depts);
       methods.course.getCourses()
         .then(re => {
-          console.log(re)
           methods.department.getAllDepts()
             .then(dep => {
               res.render('admindashboard', { "HOD": hod, "data": depts, title: 'Admin Dashboard', dept: dep, course: re });
@@ -50,7 +46,6 @@ router.get('/dashboard', (req, res, next) => {
 router.post("/addHOD", (req, res) => {
   methods.authentication.registerHOD(req.body)
     .then(result => {
-      console.log(result)
       methods.HOD.addHOD(req.body)
         .then(re => {
           res.redirect("/admin/dashboard")
@@ -71,36 +66,23 @@ router.post('/changePassword', (req, res, next) => {
 router.get("/allot", (req, response) => {
   methods.result.clearResult()
     .then(result => {
-      console.log("Result cleared")
       methods.course.unfill()
         .then(re => {
-          console.log("Courses Unfilled")
           methods.student.generateRankList()
             .then(res2 => {
-              //Students Arranged in Descending Order in res
-              // console.log(res2)
               methods.student.getStudentPreferences(res2)
                 .then(res => {
-                  //[{studentid1: ['cid1','cid2']},{studentid2: ['cid1','cid2']},{studentid3: ['cid1','cid2']}] array returned
-                  //Students are sorted in cgpa desc
                   methods.course.getAllCourses()
                     .then(re => {
-                      //re is an object with key course id and value array[capacity,filled]
                       var course_list = re;
-                      // console.log(res)
-                      // console.log(course_list)
                       var allotment = []
                       res.forEach(studObj => {
-                        //console.log(studObj)
                         studentID = Object.keys(studObj)[0]
                         courses = studObj[studentID]
                         if (!courses) {
-                          //student not specified preference
-                          // Add such students to an array and finally allot them to any course that is not yet filled
                           console.log(studentID, "not specified any preference")
                         }
                         else {
-                          //    console.log(studObj)
                           for (var i = 0; i < courses.length; i++) {
                             var course = courses[i];
                             if (course_list[course][1] < course_list[course][0]) {
@@ -183,7 +165,6 @@ router.post("/upload", (req, res) => {
       for (var i = 0; i < result.Sheet1.length; i++) {
         methods.student.addStudent(result.Sheet1[i], result.Sheet1[i].Dept);
       }
-      console.log(details)
     }
   })
   res.redirect("/admin/dashboard")

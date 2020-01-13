@@ -10,44 +10,19 @@ const Op = Sequelize.Op;
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-/*userMethods.addUser = (info) => {
-    console.log('inside adding user');
-    return new Promise((resolve, reject) => {
-      models.User.create(info)
-        .then((result) => {
-          resolve(result);
-        })
-        .catch((err) => {
-          console.log(err);
-          reject(err);
-        });
-      // models.Student.create(info2)
-      // .then((result) => {
-      //     resolve(result);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //     reject(err);
-      //   });
-
-
-
-    });
-  };
-*/
-  userMethods.changePasswordHOD = function(username,password)  {
-    return new Promise((resolve,reject) => {
-      models.user.findOne({
-        where : {
-          username : username ,
-          type : 2
-        }
-      })
+userMethods.changePasswordHOD = function (username, password) {
+  return new Promise((resolve, reject) => {
+    models.user.findOne({
+      where: {
+        username: username,
+        type: 2
+      }
+    })
       .then(user => {
         bcrypt.hash(password, saltRounds).then(hash => {
-            user.update({
-              password : hash
-            }) 
+          user.update({
+            password: hash
+          })
             .then(r => {
               resolve(r)
             })
@@ -55,62 +30,62 @@ const saltRounds = 10;
               reject(e)
             })
         })
-        .catch(er => {
-          reject(er)
-        })
-    })
-    .catch(err => {
-      reject(err)
-    })
-  
-    })
+          .catch(er => {
+            reject(er)
+          })
+      })
+      .catch(err => {
+        reject(err)
+      })
+
+  })
 }
 
-userMethods.changePasswordAdvisor = function(username,password)  {
-  return new Promise((resolve,reject) => {
+userMethods.changePasswordAdvisor = function (username, password) {
+  return new Promise((resolve, reject) => {
     models.user.findOne({
-      where : {
-        username : username ,
-        type : 3
+      where: {
+        username: username,
+        type: 3
       }
     })
-    .then(user => {
-      bcrypt.hash(password, saltRounds).then(hash => {
+      .then(user => {
+        bcrypt.hash(password, saltRounds).then(hash => {
           user.update({
-            password : hash
-          }) 
-          .then(r => {
-            resolve(r)
+            password: hash
           })
-          .catch(e => {
-            reject(e)
+            .then(r => {
+              resolve(r)
+            })
+            .catch(e => {
+              reject(e)
+            })
+        })
+          .catch(er => {
+            reject(er)
           })
       })
-      .catch(er => {
-        reject(er)
+      .catch(err => {
+        reject(err)
       })
-  })
-  .catch(err => {
-    reject(err)
-  })
 
   })
 }
 
-userMethods.ifAdmin = function(){
-  return new Promise((resolve,reject) => {
+userMethods.ifAdmin = function () {
+  return new Promise((resolve, reject) => {
     models.user.findOne({
-      where : {
-        type : 1
+      where: {
+        type: 1
       }
     })
-    .then(res => {
-      resolve(res)
-    })
-    .catch(err => {
-      reject(err)
-    })
+      .then(res => {
+        resolve(res)
+      })
+      .catch(err => {
+        reject(err)
+      })
   })
 }
-  
-  module.exports = userMethods;
+
+module.exports = userMethods;
