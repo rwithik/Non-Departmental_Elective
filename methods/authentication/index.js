@@ -13,15 +13,16 @@ const options = {
   alphabets: false,
   upperCase: false,
   specialChars: false
-};
+}
+let state = true;
 
-authenticationMethods.registerAdmin = function(info) {
-  return new Promise(function(resolve, reject) {
+authenticationMethods.registerAdmin = function (info) {
+  return new Promise(function (resolve, reject) {
     bcrypt
       .hash(info.password, saltRounds)
       .then(hash => {
         return sequelize
-          .transaction(function(t) {
+          .transaction(function (t) {
             var user = {};
             user.username = info.username;
             user.password = hash;
@@ -29,18 +30,18 @@ authenticationMethods.registerAdmin = function(info) {
             //  console.log(hash)
             return models.user
               .create(user, { transaction: t })
-              .then(function(user) {
+              .then(function (user) {
                 // console.log(user)
               })
-              .catch(function(err) {
+              .catch(function (err) {
                 reject({ success: err });
               });
           })
-          .then(function(result) {
+          .then(function (result) {
             console.log("SUCCESS");
             resolve({ success: true });
           })
-          .catch(function(err) {
+          .catch(function (err) {
             reject({ success: "false3" });
           });
       })
@@ -50,13 +51,13 @@ authenticationMethods.registerAdmin = function(info) {
   });
 };
 
-authenticationMethods.registerHOD = function(info) {
-  return new Promise(function(resolve, reject) {
+authenticationMethods.registerHOD = function (info) {
+  return new Promise(function (resolve, reject) {
     bcrypt
       .hash(info.password, saltRounds)
       .then(hash => {
         return sequelize
-          .transaction(function(t) {
+          .transaction(function (t) {
             var user = {};
             user.username = info.username;
             user.password = hash;
@@ -64,18 +65,18 @@ authenticationMethods.registerHOD = function(info) {
             //  console.log(hash)
             return models.user
               .create(user, { transaction: t })
-              .then(function(user) {
+              .then(function (user) {
                 // console.log(user)
               })
-              .catch(function(err) {
+              .catch(function (err) {
                 reject({ success: err });
               });
           })
-          .then(function(result) {
+          .then(function (result) {
             console.log("SUCCESS");
             resolve({ success: true });
           })
-          .catch(function(err) {
+          .catch(function (err) {
             reject({ success: "false3" });
           });
       })
@@ -85,13 +86,13 @@ authenticationMethods.registerHOD = function(info) {
   });
 };
 
-authenticationMethods.registerAdvisor = function(info) {
-  return new Promise(function(resolve, reject) {
+authenticationMethods.registerAdvisor = function (info) {
+  return new Promise(function (resolve, reject) {
     bcrypt
       .hash(info.password, saltRounds)
       .then(hash => {
         return sequelize
-          .transaction(function(t) {
+          .transaction(function (t) {
             var user = {};
             user.username = info.username;
             user.password = hash;
@@ -99,18 +100,18 @@ authenticationMethods.registerAdvisor = function(info) {
             //  console.log(hash)
             return models.user
               .create(user, { transaction: t })
-              .then(function(user) {
+              .then(function (user) {
                 // console.log(user)
               })
-              .catch(function(err) {
+              .catch(function (err) {
                 reject({ success: err });
               });
           })
-          .then(function(result) {
+          .then(function (result) {
             console.log("SUCCESS");
             resolve({ success: true });
           })
-          .catch(function(err) {
+          .catch(function (err) {
             reject({ success: "false3" });
           });
       })
@@ -120,8 +121,8 @@ authenticationMethods.registerAdvisor = function(info) {
   });
 };
 
-authenticationMethods.authenticateUser = function(username, password) {
-  return new Promise(function(resolve, reject) {
+authenticationMethods.authenticateUser = function (username, password) {
+  return new Promise(function (resolve, reject) {
     models.user
       .findOne({
         where: {
@@ -131,7 +132,7 @@ authenticationMethods.authenticateUser = function(username, password) {
       .then(result => {
         if (result) {
           // console.log(result)
-          bcrypt.compare(password, result.password, function(err, res) {
+          bcrypt.compare(password, result.password, function (err, res) {
             if (res === true) {
               console.log("correct password-bcrypt");
               const token = jwt.sign(
@@ -169,8 +170,10 @@ authenticationMethods.authenticateUser = function(username, password) {
   });
 };
 
-authenticationMethods.authenticateStudent = function(username) {
-  return new Promise(function(resolve, reject) {
+state = true;
+
+authenticationMethods.authenticateStudent = function (username) {
+  return new Promise(function (resolve, reject) {
     models.student
       .findOne({
         where: {
@@ -180,33 +183,55 @@ authenticationMethods.authenticateStudent = function(username) {
       .then(result => {
         if (result) {
           const emailid = result.dataValues.email;
-           console.log(result.dataValues.email);
-            const otptoken = otpGenerator.generate(6, options);
-             console.log(otptoken);
-            var transporter = nodemailer.createTransport({
-              service: 'gmail',
-              auth: {
-                user: 'globalelective1@gmail.com ',
-                pass: 'K36fCnspsU6MRPJ'
-              }
-            });
-            var mailOptions = {
-              from: 'globalelective1@gmail.com',
-              to: emailid,
-              subject: "OTP",
-              // text: `Your one time password is ${otptoken}`
-              html: `<p>Your One-Time Password is <b>${otptoken}</b></p>`
-          };
-          transporter.sendMail(mailOptions, function(error, info) {
-            if (error) {
-              console.log(error);
-            } else {
-              console.log("Email sent: " + info.response);
+          console.log(result.dataValues.email);
+          const otptoken = otpGenerator.generate(6, options);
+          console.log(otptoken);
+          var transporter1 = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'globalelective1@gmail.com ',
+              pass: 'K36fCnspsU6MRPJ'
             }
           });
+          var transporter2 = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'globalelective3@gmail.com ',
+              pass: 'K36fCnspsU6MRPJ'
+            }
+          });
+          var mailOptions = {
+            from: 'globalelective@gmail.com',
+            to: emailid,
+            subject: "OTP",
+            // text: `Your one time password is ${otptoken}`
+            html: `<p>Your One-Time Password is <b>${otptoken}</b></p>`
+          };
+          // state = await setstate();
+          state = !state;
+          if (state) {
+            transporter1.sendMail(mailOptions, function (error, info) {
+              if (error) {
+                console.log(error);
+              }
+              else {
+                console.log('Email sent: ' + info.response);
+              }
+            })
+          }
+          else {
+            transporter2.sendMail(mailOptions, function (error, info) {
+              if (error) {
+                console.log(error);
+              }
+              else {
+                console.log('Email sent: ' + info.response);
+              }
+            })
+          }
           resolve({
             success: true,
-            token: otptoken
+            token: otptoken,
           });
         } else {
           reject(new Error());
@@ -218,8 +243,8 @@ authenticationMethods.authenticateStudent = function(username) {
   });
 };
 
-authenticationMethods.authenticateStud = function(username) {
-  return new Promise(function(resolve, reject) {
+authenticationMethods.authenticateStud = function (username) {
+  return new Promise(function (resolve, reject) {
     models.student
       .findOne({
         where: {
