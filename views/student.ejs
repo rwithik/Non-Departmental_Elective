@@ -34,6 +34,7 @@
       document.getElementById(cityName).style.display = "block";
       evt.currentTarget.className += " active";
     }
+
   </script>
 </head>
 
@@ -109,16 +110,19 @@
       </li>
       <li>If you fail to get any of your choice(or if you do not provide any choice), then you will be alloted any
         course randomly.</li>
+      <li style='color:red'>Make sure you don't select courses that you've already taken in a previous semester.</li>
     </ol>
   </div>
 
   <div id="selCourses" class="tabcontent">
     <% if(data.length > 0) {%>
     <h3>Select Courses</h3>
-    <form method="POST" action='/student/selectCourse'>
-      <br><br>
+    <form method="POST" action='/student/selectCourse'
+      onsubmit="alert('Make sure you don\'t select courses that you\'ve already taken in a previous semester.')" <br>
+      <br>
       <div class="group">
-        <span style='color: rgb(199, 3, 3)'>Make sure you don't select courses that you've already taken.</span>
+        <span style='color: rgb(199, 3, 3)'>Make sure you don't select courses that you've already
+          taken in a previous semester.</span>
         <select name="courseID">
           <% for(var i=0;i<data.length;i++) { %>
           <option value=<%= data[i].courseID %>><%=data[i].courseID%> - <%= data[i].name %> </option>
