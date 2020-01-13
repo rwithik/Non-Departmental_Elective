@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "t4ddrsApUK",
-    "password": "yhHzR4Hctd",
-    "database": "t4ddrsApUK",
-    "host": "remotemysql.com",
+    "username": "root",
+    "password": "Alohamora",
+    "database": "globalelective",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "production": {
