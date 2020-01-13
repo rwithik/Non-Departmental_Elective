@@ -7,6 +7,9 @@ const key = require("../../config/api.json").API_SECRET;
 const { sequelize } = require("../../models");
 const otpGenerator = require("otp-generator");
 const nodemailer = require("nodemailer");
+
+const config = require('../../config/config.json');
+
 var authenticationMethods = {};
 const options = {
   digits: true,
@@ -189,15 +192,15 @@ authenticationMethods.authenticateStudent = function (username) {
           var transporter1 = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'globalelective1@gmail.com ',
-              pass: 'K36fCnspsU6MRPJ'
+              user: config.EMAIL1,
+              pass: config.EMAIL_PASSWORD1
             }
           });
           var transporter2 = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'globalelective3@gmail.com ',
-              pass: 'K36fCnspsU6MRPJ'
+              user: config.EMAIL2,
+              pass: config.EMAIL_PASSWORD2
             }
           });
           var mailOptions = {

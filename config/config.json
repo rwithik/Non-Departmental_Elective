@@ -4,7 +4,11 @@
     "password": "Alohamora",
     "database": "globalelective",
     "host": "localhost",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "EMAIL1": "globalelective1@gmail.com",
+    "EMAIL2": "globalelective3@gmail.com",
+    "EMAIL_PASSWORD1": "K36fCnspsU6MRPJ",
+    "EMAIL_PASSWORD2": "K36fCnspsU6MRPJ"
   },
   "production": {
     "username": "t4ddrsApUK",
