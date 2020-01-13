@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
 router.post('/confirmOtp', (req, res) => {
     console.log('states');
     console.log(states);
-    const state = states.filter(i => i.username === req.body.username)[0]
+    const state = states.filter(i => i.username === req.body.username).reverse()[0]
 
     if (state.token === req.body.otp) {
         username = req.body.username;
