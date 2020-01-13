@@ -179,15 +179,15 @@ authenticationMethods.authenticateStudent = function (username) {
           var transporter1 = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: config.EMAIL1,
-              pass: config.EMAIL_PASSWORD1
+              user: "globalelective1@gmail.com",
+              pass: "K36fCnspsU6MRPJ"
             }
           });
           var transporter2 = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: config.EMAIL2,
-              pass: config.EMAIL_PASSWORD2
+              user: "globalelective3@gmail.com",
+              pass: "K36fCnspsU6MRPJ"
             }
           });
           var mailOptions = {
