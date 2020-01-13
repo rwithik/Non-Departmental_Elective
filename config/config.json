@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "Alohamora",
-    "database": "globalelective",
-    "host": "localhost",
+    "username": "t4ddrsApUK",
+    "password": "yhHzR4Hctd",
+    "database": "t4ddrsApUK",
+    "host": "remotemysql.com",
     "dialect": "mysql",
     "EMAIL1": "globalelective1@gmail.com",
     "EMAIL2": "globalelective3@gmail.com",

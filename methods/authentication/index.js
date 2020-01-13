@@ -30,11 +30,9 @@ authenticationMethods.registerAdmin = function (info) {
             user.username = info.username;
             user.password = hash;
             user.type = 1;
-            //  console.log(hash)
             return models.user
               .create(user, { transaction: t })
               .then(function (user) {
-                // console.log(user)
               })
               .catch(function (err) {
                 reject({ success: err });
